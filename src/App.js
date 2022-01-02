@@ -70,6 +70,11 @@ export default () => {
         Feito por João Henrique Batista de Freitas
       </footer>
 
+      {movieList.length <= 0 &&
+        <div className="loading">
+          <img src="http://static.demilked.com/wp-content/uploads/2016/06/gif-animations-replace-loading-screen-14.gif" alt="Carregando"/>
+        </div>
+      }
     </div>
   )
 
