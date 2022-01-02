@@ -10,6 +10,7 @@ export default () => {
 
   const [movieList, setMovieLIst] = useState([]);
   const [featuredData, setFeaturedData] = useState(null);
+  const [blackHeader, setBlackHeader] = useState(false);
 
   
   useEffect(()=>{
@@ -28,12 +29,29 @@ export default () => {
     loadAll();
   }, []);
 
+  useEffect(()=>{
+    const scrollListener = () => {
+      if(window.scrollY > 10) {
+        setBlackHeader(true);
+      } else {
+        setBlackHeader(false);
+      }
+    }
+
+    window.addEventListener('scroll', scrollListener );
+
+    return() => {
+      window.removeEventListener('scroll', scrollListener)
+    }
+
+  }, []); 
+
   return (
     
 
     <div className="page">
 
-      <Header />
+      <Header black={blackHeader} />
       
         {featuredData &&
         <FeaturedMovie item={featuredData} />
@@ -44,6 +62,14 @@ export default () => {
           <MovieRow key={key} title={item.title} items= {item.items} />
         ))}
       </section>
+
+      <footer>
+        Projeto desenvolvido utilizando React<br/>
+        Direitos de imagens para Netflix<br/>
+        Dados pegos da API do site Themoviedb.org<br/>
+        Feito por João Henrique Batista de Freitas
+      </footer>
+
     </div>
   )
 
